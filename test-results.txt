@@ -1,0 +1,21 @@
+PHPUnit 9.5.21 #StandWithUkraine
+
+Warning:       XDEBUG_MODE=coverage or xdebug.mode=coverage has to be set
+
+...F                                                                4 / 4 (100%)
+
+Time: 00:05.843, Memory: 28.00 MB
+
+There was 1 failure:
+
+1) Tests\Feature\PostTest::testPostListedSuccessfully
+Property [data] does not exist.
+Failed asserting that false is true.
+
+D:\TradingOne\tone_migration_be\vendor\laravel\framework\src\Illuminate\Testing\Fluent\Concerns\Has.php:61
+D:\TradingOne\tone_migration_be\tests\Feature\PostTest.php:27
+D:\TradingOne\tone_migration_be\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:724
+D:\TradingOne\tone_migration_be\tests\Feature\PostTest.php:38
+
+FAILURES!
+Tests: 4, Assertions: 4, Failures: 1.
