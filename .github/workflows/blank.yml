@@ -32,6 +32,8 @@ jobs:
       - name: Read job2 summary
         run: |
           echo "${{ needs.job1.outputs.output1 }}" >> $GITHUB_STEP_SUMMARY
-      - uses: test-summary/action@v1
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
         with:
-          paths: "clover.xml"
+          files: "*.xml"
