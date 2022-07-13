@@ -9,13 +9,14 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.output.outputs.helloworld }}
+      output1: ${{ steps.read_log.outputs.outputlog }}
     steps:
       - uses: actions/checkout@v3
       - name: Read test result
+        id: read_log
         if: always()
         run: |
-          echo ::set-output name=new_value::$(tail -3 test-results.txt)
+          echo ::set-output name=outputlog::$(tail -3 test-results.txt)
       - name: Output
         if: always()
         id: output
@@ -23,3 +24,4 @@ jobs:
           echo "| Test suites | Assertion | Pass | Failure |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
           echo "| 4 | 12 | 11 | 1 |" >> $GITHUB_STEP_SUMMARY
+          echo ${{ steps.read_log.outputs.outputlog }}
