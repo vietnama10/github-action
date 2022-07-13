@@ -21,7 +21,7 @@ jobs:
         if: always()
         id: output
         run: |
-          echo "| Test suites | Assertion | Pass | Failure |" >> $GITHUB_STEP_SUMMARY
-          echo "| --- | --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| 4 | 12 | 11 | 1 |" >> $GITHUB_STEP_SUMMARY
-          echo ${{ steps.read_log.outputs.outputlog }}
+          echo "### ${{ steps.read_log.outputs.outputlog }}" >> $GITHUB_STEP_SUMMARY
+          echo "| Tests :rocket: | Assertions :heavy_check_mark: | Failures :x: |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
+          echo "| 4 | 12 | 11 |" >> $GITHUB_STEP_SUMMARY
