@@ -12,9 +12,13 @@ jobs:
       output1: ${{ steps.output.outputs.helloworld }}
     steps:
       - uses: actions/checkout@v3
+      - name: Read test result
+        if: always()
+        run: |
+          cat test_report.txt
       - name: Run a one-line script
         id: output
         run: |
-          echo "| foo | bar |" >> $GITHUB_STEP_SUMMARY
-          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| baz | bim |" >> $GITHUB_STEP_SUMMARY
+          echo "| Test suites | Assertion | Pass | Failure |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
+          echo "| 4 | 12 | 11 | 1 |" >> $GITHUB_STEP_SUMMARY
