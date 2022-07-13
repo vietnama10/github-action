@@ -15,8 +15,9 @@ jobs:
       - name: Read test result
         if: always()
         run: |
-          cat test_report.txt
-      - name: Run a one-line script
+          echo ::set-output name=new_value::$(tail -3 test-results.txt)
+      - name: Output
+        if: always()
         id: output
         run: |
           echo "| Test suites | Assertion | Pass | Failure |" >> $GITHUB_STEP_SUMMARY
