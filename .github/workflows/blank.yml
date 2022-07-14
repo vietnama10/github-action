@@ -45,8 +45,8 @@ jobs:
       - name: SonarQube Scan
         id: get_ip
         run: |
-          echo ::set-output name=ip::$(hostname -i)
-          # curl -L http://localhost:80
+          #echo ::set-output name=ip::$(hostname -i)
+          curl -L http://0.0.0.0:80
       - name: Sonar scan using docker
         run: docker run --rm --name sonarscaner -e SONAR_HOST_URL="http://localhost:80" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
       - name: View docker containers again
