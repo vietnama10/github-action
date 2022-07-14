@@ -43,4 +43,3 @@ jobs:
         with:
           image: sonarqube:lts-community
           run: curl http://localhost:9000
-      - name: Tesst call sonar host
