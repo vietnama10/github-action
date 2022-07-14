@@ -37,3 +37,14 @@ jobs:
       - name: Read job2 summary
         run: |
           echo "${{ needs.job1.outputs.output1 }}" >> $GITHUB_STEP_SUMMARY
+      - uses: overtrue/phplint@8.1
+        name: Php code checker
+        with:
+          path: .
+          options: --exclude=vendor
+          jobs: 10
+          cache: build/phplint.cache
+          extensions: php
+          exclude: vendor
+          warning: false
+          memory_limit: -1
