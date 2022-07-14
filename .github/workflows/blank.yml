@@ -38,10 +38,7 @@ jobs:
           echo "Sumarrrryyyyyy :rocket:" >> $GITHUB_STEP_SUMMARY
       - name: Checkout 
         uses: actions/checkout@v2
-      - name: Start a sonarqube container
-        uses: addnab/docker-run-action@v3
-        with:
-          image: sonarqube:lts-community
-          options: -p 9000:9000
-      - name: Tesst curl
+      - name: Run sonarqube container
+        run: docker run --rm -it -p 9000:9000 sonarqube:lts-community
+      - name: View docker containers
         run: docker ps -a
