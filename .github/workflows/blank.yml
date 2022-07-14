@@ -39,13 +39,13 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v2
       - name: Run sonarqube container
-        run: |
-          docker network create sonar-network
-          docker run --name sonarqube --network host --rm -d -p 9000:9000 sonarqube:lts-community
+        run: docker run --name sonarqube --network host --rm -d -p 9000:9000 sonarqube:lts-community
       - name: View docker containers
         run: docker ps -a
-      # - name: SonarQube Scan
-      #   run: curl -L 0.0.0.0:9000
+      - name: SonarQube Scan
+        run: |
+          arp-scan --interface=eth0 --localnet| awk '{print $1}'|tail -n +3|head -n -2
+          curl -L 0.0.0.0:9000
       - name: Sonar scan using docker
         run: docker run --rm --name sonar-scaner --network host -e SONAR_HOST_URL="http://localhost:9000" -e SONAR_LOGIN="myAuthenticationToken" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
       - name: View docker containers again
