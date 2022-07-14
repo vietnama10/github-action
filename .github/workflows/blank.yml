@@ -47,7 +47,7 @@ jobs:
       # - name: SonarQube Scan
       #   run: curl -L 0.0.0.0:9000
       - name: Sonar scan using docker
-        run: docker run --rm --name sonar-scaner --network sonar-network -e SONAR_HOST_URL="sonarqube" -e SONAR_LOGIN="myAuthenticationToken" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
+        run: docker run --rm --name sonar-scaner --network sonar-network -e SONAR_HOST_URL="http://localhost:9000" -e SONAR_LOGIN="myAuthenticationToken" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
       - name: View docker containers again
         run: docker ps -a
 
