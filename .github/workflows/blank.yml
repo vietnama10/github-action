@@ -6,39 +6,41 @@ on:
     branches: [ "main" ]
     
 jobs:
-  job1:
-    runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.read_log.outputs.outputlog }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Read test result
-        id: read_log
-        if: always()
-        run: |
-          echo ::set-output name=outputlog::$(tail -3 test-results.txt)
-      - name: Output
-        if: always()
-        id: output
-        run: |
-          echo "### ${{ steps.read_log.outputs.outputlog }}" >> $GITHUB_STEP_SUMMARY
-          echo "| Tests :rocket: | Assertions :heavy_check_mark: | Failures :x: |" >> $GITHUB_STEP_SUMMARY
-          echo "| --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| 4 | 12 | 11 |" >> $GITHUB_STEP_SUMMARY
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
-        with:
-          files: clover.xml
+#   job1:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       output1: ${{ steps.read_log.outputs.outputlog }}
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Read test result
+#         id: read_log
+#         if: always()
+#         run: |
+#           echo ::set-output name=outputlog::$(tail -3 test-results.txt)
+#       - name: Output
+#         if: always()
+#         id: output
+#         run: |
+#           echo "### ${{ steps.read_log.outputs.outputlog }}" >> $GITHUB_STEP_SUMMARY
+#           echo "| Tests :rocket: | Assertions :heavy_check_mark: | Failures :x: |" >> $GITHUB_STEP_SUMMARY
+#           echo "| --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
+#           echo "| 4 | 12 | 11 |" >> $GITHUB_STEP_SUMMARY
+#       - name: Publish Test Results
+#         uses: EnricoMi/publish-unit-test-result-action@v1
+#         if: always()
+#         with:
+#           files: clover.xml
   job2:
     runs-on: ubuntu-latest
-    needs: job1
     steps:
       - name: Read job2 summary
         run: |
-          echo "${{ needs.job1.outputs.output1 }}" >> $GITHUB_STEP_SUMMARY
-      - uses: overtrue/phplint@8.1
-        name: Php code checker
+          echo "Sumarrrryyyyyy :rocket:" >> $GITHUB_STEP_SUMMARY
+      - name: Checkout 
+        uses: actions/checkout@v2
+      - name: Start a sonarqube container
+        uses: addnab/docker-run-action@v3
         with:
-          path: .
-          options: --exclude=vendor --extensions=php
+          image: sonarqube:lts-community
+      - name: Tesst call sonar host
+        run: curl http://localhost:9000
