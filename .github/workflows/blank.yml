@@ -43,10 +43,12 @@ jobs:
       - name: View docker containers
         run: docker ps -a
       - name: SonarQube Scan
-        run: hostname -i
-          # curl -L 0.0.0.0:9000
+        id: get_ip
+        run:|
+          echo ::set-output name=ip::$(hostname -i)
+          curl -L http://${{steps.get_ip.outputs.ip}}:9000
       - name: Sonar scan using docker
-        run: docker run --rm --name sonar-scaner --network host -e SONAR_HOST_URL="http://localhost:9000" -e SONAR_LOGIN="myAuthenticationToken" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
+        run: docker run --rm --name sonar-scaner --network host -e SONAR_HOST_URL="http://${{steps.get_ip.outputs.ip}}:9000" -e SONAR_LOGIN="myAuthenticationToken" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
       - name: View docker containers again
         run: docker ps -a
 
