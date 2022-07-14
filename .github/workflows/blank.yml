@@ -39,14 +39,14 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v2
       - name: Run sonarqube container
-        run: docker run --name sonarqube --rm -d -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 --network=host sonarqube:lts-community
+        run: docker run --name sonarqube --rm -d -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 --network host sonarqube:lts-community
       - name: View docker containers
         run: docker ps -a
       - name: Check SonarQube Server
         run: |
           curl -L http://127.0.0.1:9000
       - name: Sonar scan using docker
-        run: docker run --rm --name sonarscaner -e SONAR_HOST_URL="http://127.0.0.1:9000" -v "$(pwd):/usr/src" --network=host sonarsource/sonar-scanner-cli
+        run: docker run --rm --name sonarscaner -e SONAR_HOST_URL="http://127.0.0.1:9000" -v "$(pwd):/usr/src" --network host sonarsource/sonar-scanner-cli
       - name: View docker containers again
         run: docker ps -a
 
