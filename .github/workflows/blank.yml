@@ -46,7 +46,7 @@ jobs:
         id: get_ip
         run: |
           echo ::set-output name=ip::$(hostname -i)
-          curl -L http://${{steps.get_ip.outputs.ip}}:9000
+          curl -L http://$(hostname -i):9000
       - name: Sonar scan using docker
         run: docker run --rm --name sonar-scaner --network host -e SONAR_HOST_URL="http://${{steps.get_ip.outputs.ip}}:9000" -e SONAR_LOGIN="myAuthenticationToken" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
       - name: View docker containers again
