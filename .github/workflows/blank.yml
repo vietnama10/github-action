@@ -41,13 +41,13 @@ jobs:
       - name: Run sonarqube container
         run: |
           docker network create sonar-network
-          docker run --name sonarqube --network sonar-network --rm -d -p 9000:9000 sonarqube:lts-community
+          docker run --name sonarqube --network host --rm -d -p 9000:9000 sonarqube:lts-community
       - name: View docker containers
         run: docker ps -a
       # - name: SonarQube Scan
       #   run: curl -L 0.0.0.0:9000
       - name: Sonar scan using docker
-        run: docker run --rm --name sonar-scaner --network sonar-network -e SONAR_HOST_URL="http://localhost:9000" -e SONAR_LOGIN="myAuthenticationToken" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
+        run: docker run --rm --name sonar-scaner --network host -e SONAR_HOST_URL="http://localhost:9000" -e SONAR_LOGIN="myAuthenticationToken" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
       - name: View docker containers again
         run: docker ps -a
 
