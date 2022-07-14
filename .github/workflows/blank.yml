@@ -42,5 +42,5 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: sonarqube:lts-community
+          run: curl http://localhost:9000
       - name: Tesst call sonar host
-        run: curl http://localhost:9000
