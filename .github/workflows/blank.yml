@@ -39,16 +39,16 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v2
       - name: Run sonarqube container
-        run: docker run --name sonarqube --rm -d -p 8080:9000 sonarqube:lts-community
+        run: docker run --name sonarqube --rm -d -p 80:9000 sonarqube:lts-community
       - name: View docker containers
         run: docker ps -a
       - name: SonarQube Scan
         id: get_ip
         run: |
           echo ::set-output name=ip::$(hostname -i)
-          # curl -L http://localhost:8080
+          # curl -L http://localhost:80
       - name: Sonar scan using docker
-        run: docker run --rm --name sonarscaner -e SONAR_HOST_URL="http://localhost:8080" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
+        run: docker run --rm --name sonarscaner -e SONAR_HOST_URL="http://localhost:80" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
       - name: View docker containers again
         run: docker ps -a
 
