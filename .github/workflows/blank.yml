@@ -42,10 +42,9 @@ jobs:
         run: docker run --name sonarqube --rm -d -p 80:9000 sonarqube:lts-community
       - name: View docker containers
         run: docker ps -a
-      - name: SonarQube Scan
-        id: get_ip
+      - name: Check SonarQube Server
         run: |
-          #echo ::set-output name=ip::$(hostname -i)
+          apt update
           curl -L http://0.0.0.0:80
       - name: Sonar scan using docker
         run: docker run --rm --name sonarscaner -e SONAR_HOST_URL="http://localhost:80" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
