@@ -38,14 +38,19 @@ jobs:
           echo "Sumarrrryyyyyy :rocket:" >> $GITHUB_STEP_SUMMARY
       - name: Checkout 
         uses: actions/checkout@v2
-      - name: Run sonarqube container
-        run: docker run --name sonarqube -d -p 9000:9000 sonarqube:lts-community
-      - name: View docker containers
-        run: docker ps -a
-      - name: Check SonarQube Server
-        run: |
-          curl -L http://127.0.0.1:9000
-      - name: Sonar scan using docker
-        run: docker run --rm --name sonarscaner -e SONAR_HOST_URL="http://127.0.0.1:9000" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
-      - name: View docker containers again
-        run: docker ps -a
+      # - name: Run sonarqube container
+      #   run: docker run --name sonarqube -d -p 9000:9000 sonarqube:lts-community
+      # - name: View docker containers
+      #   run: docker ps -a
+      # - name: Check SonarQube Server
+      #   run: |
+      #     curl -L http://127.0.0.1:9000
+      # - name: Sonar scan using docker
+      #   run: docker run --rm --name sonarscaner -e SONAR_HOST_URL="http://127.0.0.1:9000" -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
+      # - name: View docker containers again
+      #   run: docker ps -a
+      - name: SonarCloud Scan
+              uses: SonarSource/sonarcloud-github-action@master
+              env:
+                # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
