@@ -30,7 +30,7 @@ jobs:
 #         if: always()
 #         with:
 #           files: clover.xml
-  job2:
+  SonarQubeScan:
     runs-on: ubuntu-latest
     steps:
       - name: Read job2 summary
